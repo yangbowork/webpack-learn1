@@ -1,3 +1,8 @@
+/******/ (function() { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
 // import "./index.css";
 // import "./index.less";
 // import "./index.scss";
@@ -18,3 +23,7 @@ const p = new Promise((resolve) => {
 p.then((res) => {
   console.log(res);
 });
+
+/******/ })()
+;
+//# sourceMappingURL=bundle.js.map
