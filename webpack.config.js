@@ -19,16 +19,16 @@ module.exports = {
       directory: resolve(__dirname, "static"),
     },
     compress: true,
-    port: 8080,
+    port: 8081,
     open: true,
   },
   module: {
     rules: [
-      // {
-      //   test: /\.jsx?$/,
-      //   use:
-      //   exclude: /node_modules/
-      // },
+      {
+        test: /\.jsx?$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
+      },
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
