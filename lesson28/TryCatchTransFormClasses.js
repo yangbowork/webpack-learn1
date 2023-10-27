@@ -43,7 +43,7 @@ const TryCatchTransformClasses = {
         node.generator,
         node.async
       );
-      nodePath.replaceWith(func);
+      // nodePath.replaceWith(func);
     },
   },
 };
