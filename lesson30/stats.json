@@ -1,0 +1,101 @@
+{
+  "hash": "b08532b9812d0277169a",
+  "version": "5.89.0",
+  "time": 100,
+  "builtAt": 1698397315038,
+  "publicPath": "auto",
+  "outputPath": "c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson30\\dist",
+  "assetsByChunkName": { "main": ["main.js"] },
+  "assets": [
+    {
+      "type": "asset",
+      "name": "main.js",
+      "size": 662,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": { "javascriptModule": false, "size": 662 },
+      "chunkNames": ["main"],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": ["main"],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    }
+  ],
+  "chunks": [
+    {
+      "rendered": true,
+      "initial": true,
+      "entry": true,
+      "recorded": false,
+      "size": 0,
+      "sizes": {},
+      "names": ["main"],
+      "idHints": [],
+      "runtime": ["main"],
+      "files": ["main.js"],
+      "auxiliaryFiles": [],
+      "hash": "385b69b95dd8293fef7d",
+      "childrenByOrder": {},
+      "id": "main",
+      "siblings": [],
+      "parents": [],
+      "children": [],
+      "origins": [
+        {
+          "module": "",
+          "moduleIdentifier": "",
+          "moduleName": "",
+          "loc": "main",
+          "request": "./src/index.js"
+        }
+      ]
+    }
+  ],
+  "modules": [],
+  "entrypoints": {
+    "main": {
+      "name": "main",
+      "chunks": ["main"],
+      "assets": [{ "name": "main.js", "size": 662 }],
+      "filteredAssets": 0,
+      "assetsSize": 662,
+      "auxiliaryAssets": [],
+      "filteredAuxiliaryAssets": 0,
+      "auxiliaryAssetsSize": 0,
+      "children": {},
+      "childAssets": {},
+      "isOverSizeLimit": false
+    }
+  },
+  "namedChunkGroups": {
+    "main": {
+      "name": "main",
+      "chunks": ["main"],
+      "assets": [{ "name": "main.js", "size": 662 }],
+      "filteredAssets": 0,
+      "assetsSize": 662,
+      "auxiliaryAssets": [],
+      "filteredAuxiliaryAssets": 0,
+      "auxiliaryAssetsSize": 0,
+      "children": {},
+      "childAssets": {},
+      "isOverSizeLimit": false
+    }
+  },
+  "errors": [
+    {
+      "loc": "main",
+      "message": "Module not found: Error: Can't resolve './src/index.js' in 'c:\\Users\\ctzduser41\\Desktop\\learn-webpack'",
+      "details": "resolve './src/index.js' in 'c:\\Users\\ctzduser41\\Desktop\\learn-webpack'\n  No description file found in c:\\Users\\ctzduser41\\Desktop\\learn-webpack or above\n  No description file found in c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\src or above\n  no extension\n    c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\src\\index.js doesn't exist\n  .js\n    c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\src\\index.js.js doesn't exist\n  .json\n    c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\src\\index.js.json doesn't exist\n  .wasm\n    c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\src\\index.js.wasm doesn't exist\n  as directory\n    c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\src\\index.js doesn't exist",
+      "stack": "ModuleNotFoundError: Module not found: Error: Can't resolve './src/index.js' in 'c:\\Users\\ctzduser41\\Desktop\\learn-webpack'\n    at c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson30\\node_modules\\webpack\\lib\\Compilation.js:2022:28\n    at c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson30\\node_modules\\webpack\\lib\\NormalModuleFactory.js:817:13\n    at eval (eval at create (c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson30\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:10:1)\n    at c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson30\\node_modules\\webpack\\lib\\NormalModuleFactory.js:275:22\n    at eval (eval at create (c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson30\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:9:1)\n    at c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson30\\node_modules\\webpack\\lib\\NormalModuleFactory.js:448:22\n    at c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson30\\node_modules\\webpack\\lib\\NormalModuleFactory.js:118:11\n    at c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson30\\node_modules\\webpack\\lib\\NormalModuleFactory.js:689:25\n    at c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson30\\node_modules\\webpack\\lib\\NormalModuleFactory.js:893:8\n    at c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson30\\node_modules\\webpack\\lib\\NormalModuleFactory.js:1013:5"
+    }
+  ],
+  "errorsCount": 1,
+  "warnings": [],
+  "warningsCount": 0,
+  "children": []
+}
