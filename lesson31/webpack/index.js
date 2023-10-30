@@ -22,6 +22,8 @@ function webpack(options) {
   if (finalOptions.plugins && Array.isArray(finalOptions.plugins)) {
     for (let plugin of finalOptions.plugins) {
       // 刚开始的时候，就会执行所有的插件实例的apply方法，并传递compiler实例
+      // 所以说插件是在webpack开始编译之前全部挂在的
+      // 但是要到插件关注的钩子触发的时候才会执行
       plugin.apply(compiler);
     }
   }
