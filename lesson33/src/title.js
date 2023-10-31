@@ -1,1 +1,2 @@
-module.exports = 'title'
+const name = require("./name");
+module.exports = "title" + name;

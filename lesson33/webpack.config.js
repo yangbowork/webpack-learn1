@@ -3,12 +3,15 @@ const RunPlugin = require("./plugins/run-plugin");
 const DonePlugin = require("./plugins/done-plugin");
 module.exports = {
   mode: "development",
-  // c:\Users\ctzduser41\Desktop\learn-webpack\lesson32
+  // c:\Users\ctzduser41\Desktop\learn-webpack\lesson33
   context: process.cwd(), // 根目录 current working directory
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
+  },
+  resolve: {
+    extensions: ["", ".js", ".jsx", ".json"],
   },
   module: {
     rules: [
