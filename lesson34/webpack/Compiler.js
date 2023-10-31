@@ -21,15 +21,16 @@ class Compiler {
       emit: new SyncHook(), // 会在将要写入文件时触发
       done: new SyncHook(), // 会在完成编译的时候触发
     };
-    this.entries = []; // 这个数组存放这所有的入口
-    this.modules = []; // 这里存放着素有的模块
-    this.chunks = []; // webpack5 this.chunks = new Set()
+    this.entries = new Set(); // 这个数组存放这所有的入口
+    this.modules = new Set(); // 这里存放着素有的模块
+    this.chunks = new Set(); // webpack5 this.chunks = new Set()
     this.assets = {}; // 输出列表 存放着将要产出的资源文件
-    this.files = []; // 表示本次编译的所有产出的文件名
+    this.files = new Set(); // 表示本次编译的所有产出的文件名
   }
   // 4.执行对象的run方法开始执行编译
-  run() {
-    this.hooks.run.call(); // 当调用run方法的时候会触发run这个钩子，进而执行它的回调函数
+  run(callback) {
+    // 当调用run方法的时候会触发run这个钩子，进而执行它的回调函数
+    this.hooks.run.call();
     // 5.根据配置中的entry找到入口文件，得到entry的绝对路径
     // c:\Users\ctzduser41\Desktop\learn-webpack\lesson34\src\index.js
     // 打包后的文件，所有的路径都是\ => /
@@ -46,15 +47,15 @@ class Compiler {
       );
       // 6.从入口文件出发，调用所有配置的Loader对模块进行编译
       const entryModule = this.buildModule(entryName, entryFilePath);
-      // this.modules.push(entryModule);
+      // this.modules.add(entryModule);
       // 7.根据入口和模块之间的依赖关系，组装成一个个包含多个模块的Chunk
       let chunk = {
         name: entryName,
         entryModule,
         modules: this.modules.filter((module) => module.name === entryName),
       };
-      this.chunks.push(chunk);
-      this.entries.push(chunk); // 也是入口代码块
+      this.chunks.add(chunk);
+      this.entries.add(chunk); // 也是入口代码块
     }
 
     // 8.再把每个Chunk转换成一个单独的文件加入到输出列表
@@ -75,6 +76,17 @@ class Compiler {
     }
 
     this.hooks.done.call();
+    callback(null, {
+      // 对象stats统计信息，表示本次编译结果的描述信息对象
+      toJson: () => {
+        return {
+          assets: this.assets,
+          chunks: this.chunks,
+          modules: this.modules,
+          entries: this.entries,
+        };
+      },
+    });
   }
   /**
    * 编译模块 1.读取模块文件
@@ -100,7 +112,7 @@ class Compiler {
     }
     let moduleId = "./" + path.posix.relative(baseDir, modulePath);
     // webpack最核心的几个概念要出场了 module 模块ID，依赖的数组
-    const module = { id: moduleId, dependencies: [], name };
+    const module = { id: moduleId, dependencies: new Set(), name };
     // 现在我们已经得到转换后的代码 babel-loader es6=>es5
     // 再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理
     const astTree = parser.parse(originalSourceCode, { sourceType: "module" });
@@ -130,7 +142,7 @@ class Compiler {
           let depModuleId = "./" + path.posix.relative(baseDir, depModulePath); // ./src/title.js
           // 修改抽象语法树
           node.arguments = [types.stringLiteral(depModuleId)];
-          module.dependencies.push(depModulePath);
+          module.dependencies.add(depModulePath);
         }
       },
     });
@@ -140,7 +152,7 @@ class Compiler {
     // 再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理
     module.dependencies.forEach((dependency) => {
       let dependencyModule = this.buildModule(name, dependency);
-      this.modules.push(dependencyModule);
+      this.modules.add(dependencyModule);
     });
     return module;
   };
