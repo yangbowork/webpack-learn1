@@ -1,0 +1,43 @@
+const aa = 
+{
+  name: 'xxx',
+  context: 'c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson39-40\\src',
+  loaderIndex: 6,
+  loaders: [
+    {
+      path: 'c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson39-40\\loaders\\post-loader1',
+      query: '',
+      fragment: '',
+      options: undefined,
+      ident: undefined,
+      normal: [Function],
+      pitch: [Function (anonymous)],
+      raw: undefined,
+      data: {},
+      pitchExecuted: true,
+      normalExecuted: false,
+      request: [Getter/Setter]
+    },
+  ],
+  resourcePath: 'c:\\Users\\ctzduser41\\Desktop\\learn-webpack\\lesson39-40\\src\\index.js',
+  resourceQuery: '',
+  resourceFragment: '',
+  async: [Function: async],
+  callback: [Function (anonymous)],
+  cacheable: [Function: cacheable],
+  addDependency: [Function: addDependency],
+  dependency: [Function: addDependency],
+  addContextDependency: [Function: addContextDependency],
+  addMissingDependency: [Function: addMissingDependency],
+  getDependencies: [Function: getDependencies],
+  getContextDependencies: [Function: getContextDependencies],
+  getMissingDependencies: [Function: getMissingDependencies],
+  clearDependencies: [Function: clearDependencies],
+  resource: [Getter/Setter],
+  request: [Getter],
+  remainingRequest: [Getter],
+  currentRequest: [Getter],
+  previousRequest: [Getter],
+  query: [Getter],
+  data: [Getter]
+}
