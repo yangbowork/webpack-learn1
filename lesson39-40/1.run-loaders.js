@@ -4,10 +4,11 @@
  * 2.为什么要分成四种loader？loader类型不同会决定执行的顺序
  * 因为loader的配置是分散的，它可能会由多个配置文件合并而来
  */
+// const { runLoaders } = require("loader-runner");
 const { runLoaders } = require("./loader-runner.js");
 const path = require("path");
 const fs = require("fs");
-const filePath = path.resolve(__dirname, "./src/index.js?name=XXX#top");
+const filePath = path.resolve(__dirname, "./src/index.js");
 // 这个在我们手写style-loader的时候会用到
 const request = `inline-loader1!inline-loader2!${filePath}`;
 const parts = request.replace(/^-?!+/, "").split("!");
@@ -33,6 +34,7 @@ for (let i = 0; i < rules.length; i++) {
     }
   }
 }
+
 preLoaders = preLoaders.map(resolveLoader);
 postLoaders = postLoaders.map(resolveLoader);
 normalLoaders = normalLoaders.map(resolveLoader);
