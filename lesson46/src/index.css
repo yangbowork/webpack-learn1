@@ -1,0 +1,5 @@
+@import './global.css';
+body {
+  background-image: url(./images/photo.jpg);
+  background-size: contain;
+}
