@@ -4,8 +4,6 @@ const webpackOptions = require("./webpack.config");
 debugger;
 const compiler = webpack(webpackOptions);
 compiler.run((err, stats) => {
-  console.log(err);
-  console.log(111111111);
   console.log(
     stats.toJson({
       entries: true, // entrypoints入口
