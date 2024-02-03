@@ -6,10 +6,19 @@ const parser = new Parser();
 const path = require("path");
 const async = require("neo-async");
 const Chunk = require("./Chunk");
-const ejs = require('ejs')
-const fs = require('fs')
-const mainTemplate = fs.readFileSync(path.posix.join(__dirname, 'templates', 'main.ejs'), 'utf8')
-const mainRender = ejs.compile(mainTemplate)
+const ejs = require("ejs");
+const fs = require("fs");
+const mainTemplate = fs.readFileSync(
+  path.posix.join(__dirname, "templates", "asyncMain.ejs"),
+  "utf8"
+);
+const mainRender = ejs.compile(mainTemplate);
+
+const chunkTemplate = fs.readFileSync(
+  path.posix.join(__dirname, "templates", "chunk.ejs"),
+  "utf8"
+);
+const chunkRender = ejs.compile(chunkTemplate);
 
 class Compilation extends Tapable {
   constructor(compiler) {
@@ -40,11 +49,11 @@ class Compilation extends Tapable {
    * @param {*} callback 编译完成的回调
    */
   addEntry(context, entry, name, finalCallback) {
-    this._addModuleChain(context, entry, name, (err, module) => {
+    this._addModuleChain(context, entry, name, false, (err, module) => {
       finalCallback(err, module);
     });
   }
-  _addModuleChain(context, rawRequest, name, callback) {
+  _addModuleChain(context, rawRequest, name, async, callback) {
     this.createModule(
       {
         name,
@@ -52,6 +61,7 @@ class Compilation extends Tapable {
         rawRequest,
         parser,
         resource: path.posix.join(context, rawRequest),
+        async,
       },
       (entryModule) => this.entries.push(entryModule),
       callback
@@ -145,10 +155,18 @@ class Compilation extends Tapable {
       const chunk = this.chunks[i];
       const file = chunk.name + ".js"; // 只是拿到了文件名
       chunk.files.push(file);
-      let source = mainRender({
-        entryModuleId: chunk.entryModule.moduleId, // ./src/index.js
-        modules: chunk.modules // 此代码块对应的模块数组[{moduleId:"./src/index.js"}, {moduleId: "./src/title.js"}]
-      });
+      let source;
+      if (chunk.async) {
+        source = chunkRender({
+          chunkName: chunk.name, // ./src/index.js
+          modules: chunk.modules, // 此代码块对应的模块数组[{moduleId:"./src/index.js"}, {moduleId: "./src/title.js"}]
+        });
+      } else {
+        source = mainRender({
+          entryModuleId: chunk.entryModule.moduleId, // ./src/index.js
+          modules: chunk.modules, // 此代码块对应的模块数组[{moduleId:"./src/index.js"}, {moduleId: "./src/title.js"}]
+        });
+      }
       this.emitAssets(file, source);
     }
   }
