@@ -13,7 +13,7 @@ const webpack = (options) => {
     }
   }
   // 初始化选项，挂在内置插件
-  compiler.options = new WebpackOptionsApply().process(options, compiler);
+  new WebpackOptionsApply().process(options, compiler);
   return compiler;
 };
 

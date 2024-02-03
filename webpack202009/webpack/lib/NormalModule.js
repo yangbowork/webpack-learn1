@@ -3,17 +3,20 @@ const types = require("babel-types");
 const generate = require("babel-generator").default;
 const traverse = require("babel-traverse").default;
 class NormalModule {
-  constructor({ name, context, rawRequest, resource, parser }) {
+  constructor({ name, context, rawRequest, resource, parser, moduleId }) {
     this.name = name;
     this.context = context;
     this.rawRequest = rawRequest;
     this.resource = resource; // 模块的绝对路径
     // 这是AST解析器，可以把源代码转成AST抽象语法树
     this.parser = parser;
+    this.moduleId = moduleId || "./" + path.posix.relative(context, resource);
     // 此模块对应的源代码
     this._source;
     // 此模块对应的AST抽象语法树
     this._ast;
+    // 当前模块依赖的模块信息
+    this.dependencies = [];
   }
   /**
    * 编译本模块
@@ -31,6 +34,8 @@ class NormalModule {
           const node = nodePath.node; // 获取节点
 
           if (node.callee.name === "require") {
+            // 把方法名用require改成了__webpack_require__;
+            node.callee.name = "__webpack_require__";
             // 如果方法名是require方法的话
             const moduleName = node.arguments[0].value; // 模块的名字
             // 获取了可能的扩展名
@@ -46,11 +51,22 @@ class NormalModule {
             // 依赖的模块ID ./ + 从根目录出发到依赖模块的绝对路径的相对路径
             let depModuleId =
               "./" + path.posix.relative(this.context, depResource);
-            console.log(depModuleId);
+            // 把require模块路径从./title.js变成了./src/title.js
+            node.arguments = [types.stringLiteral(depModuleId)];
+            this.dependencies.push({
+              name: this.name, // main
+              context: this.context, // 根目录
+              rawRequest: moduleName, // 模块的相对路径 原始路径
+              moduleId: depModuleId, // 模块ID 他是一个相对于根目录的相对路径，以./开头
+              resource: depResource, // 依赖模块的绝对路径
+            });
           }
         },
       });
-      // callback();
+      // 把转换后的语法树重新生成源代码
+      let { code } = generate(this._ast);
+      this._source = code;
+      callback();
     });
   }
   /**

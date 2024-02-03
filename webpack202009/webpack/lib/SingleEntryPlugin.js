@@ -9,7 +9,6 @@ class SingleEntryPlugin {
       "SingleEntryPlugin",
       (compilation, callback) => {
         const { context, entry, name } = this;
-        console.log("SingleEntryPlugin run");
         // 从此入口开始编译，编译入口文件和它的依赖 context根目录 entry入口文件的相对路径 name main callback最终回调
         compilation.addEntry(context, entry, name, callback);
       }
